@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 
 const ImageEditor = () => {
   const canvasRef = useRef(null);
@@ -39,23 +39,26 @@ const ImageEditor = () => {
     reader.readAsDataURL(file);
   };
 
-  const addTextToImage = (text, x_pos, y_pos, text_2, x_pos_2, y_pos_2) => {
-    if (!image) return;
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(image, 0, 0);
-    ctx.font = textSize + "px impact";
-    ctx.strokeStyle = textColor === "white" ? "black" : "white";
-    ctx.lineWidth = 8;
+  const addTextToImage = useCallback(
+    (text, x_pos, y_pos, text_2, x_pos_2, y_pos_2) => {
+      if (!image) return;
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(image, 0, 0);
+      ctx.font = textSize + "px impact";
+      ctx.strokeStyle = textColor === "white" ? "black" : "white";
+      ctx.lineWidth = 8;
 
-    ctx.strokeText(text, x_pos, y_pos);
-    ctx.fillStyle = textColor;
-    ctx.fillText(text, x_pos, y_pos);
+      ctx.strokeText(text, x_pos, y_pos);
+      ctx.fillStyle = textColor;
+      ctx.fillText(text, x_pos, y_pos);
 
-    ctx.strokeText(text_2, x_pos_2, y_pos_2);
-    ctx.fillStyle = textColor;
-    ctx.fillText(text_2, x_pos_2, y_pos_2);
-  };
+      ctx.strokeText(text_2, x_pos_2, y_pos_2);
+      ctx.fillStyle = textColor;
+      ctx.fillText(text_2, x_pos_2, y_pos_2);
+    },
+    [image, textSize, textColor]
+  );
 
   const saveImage = () => {
     const canvas = canvasRef.current;
@@ -90,9 +93,11 @@ const ImageEditor = () => {
       </div>
       <div className="flex flex-col max-w-80 space-y-4">
         <input type="file" accept="image/*" onChange={handleImageUpload} />
-        <div>
-          <div className="flex space-x-4 items-center">
-            <label htmlFor="line_1">Line 1</label>
+        <div className="mt-8">
+          <div className="flex space-x-4 items-center mt-4">
+            <label className="" htmlFor="line_1">
+              Line 1
+            </label>
             <input
               name="line_1"
               type="text"
@@ -103,7 +108,7 @@ const ImageEditor = () => {
             />
           </div>
           <div className="flex space-x-4 items-center">
-            <label htmlFor="x_pos">X Position</label>
+            <label htmlFor="x_pos">X</label>
             <input
               name="x_pos"
               type="range"
@@ -115,7 +120,7 @@ const ImageEditor = () => {
             />
           </div>
           <div className="flex space-x-4 items-center">
-            <label htmlFor="y_pos">Y Position</label>
+            <label htmlFor="y_pos">Y</label>
             <input
               name="y_pos"
               type="range"
@@ -126,8 +131,9 @@ const ImageEditor = () => {
               onChange={(event) => setLine1Y(event.target.value)}
             />
           </div>
-
-          <div className="flex space-x-4 items-center">
+        </div>
+        <div>
+          <div className="flex space-x-4 items-center mt-8">
             <label htmlFor="line_1">Line 2</label>
             <input
               name="line_2"
@@ -139,7 +145,7 @@ const ImageEditor = () => {
             />
           </div>
           <div className="flex space-x-4 items-center">
-            <label htmlFor="x_pos">X Position</label>
+            <label htmlFor="x_pos">X</label>
             <input
               name="x_pos"
               type="range"
@@ -151,7 +157,7 @@ const ImageEditor = () => {
             />
           </div>
           <div className="flex space-x-4 items-center">
-            <label htmlFor="y_pos">Y Position</label>
+            <label htmlFor="y_pos">Y</label>
             <input
               name="y_pos"
               type="range"
@@ -163,7 +169,7 @@ const ImageEditor = () => {
             />
           </div>
 
-          <div className="flex space-x-4 items-center">
+          <div className="flex space-x-4 items-center mt-6">
             <label htmlFor="fontSize">Text size</label>
             <input
               name="fontSize"
@@ -177,7 +183,7 @@ const ImageEditor = () => {
           </div>
 
           <div className="flex space-x-4 items-center">
-            <label htmlFor="text_color">Text Color</label>
+            <label htmlFor="text_color">Text color</label>
             <div>
               <input
                 type="radio"
