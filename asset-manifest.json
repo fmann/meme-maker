@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/meme-maker/static/css/main.f61f71a8.css",
+    "main.js": "/meme-maker/static/js/main.9d4fc996.js",
+    "static/js/453.bb1c24c9.chunk.js": "/meme-maker/static/js/453.bb1c24c9.chunk.js",
+    "index.html": "/meme-maker/index.html",
+    "main.f61f71a8.css.map": "/meme-maker/static/css/main.f61f71a8.css.map",
+    "main.9d4fc996.js.map": "/meme-maker/static/js/main.9d4fc996.js.map",
+    "453.bb1c24c9.chunk.js.map": "/meme-maker/static/js/453.bb1c24c9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f61f71a8.css",
+    "static/js/main.9d4fc996.js"
+  ]
+}
